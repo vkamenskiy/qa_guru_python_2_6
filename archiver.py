@@ -3,7 +3,6 @@ import csv
 import io
 from openpyxl import load_workbook
 import PyPDF2
-from pdfreader import PDFDocument
 
 with ZipFile('resources/test_zip.zip', 'w') as zip_file:
     zip_file.write('test_files2/test_csv.csv', 'csv_test.csv')
@@ -30,10 +29,3 @@ with ZipFile('resources/test_zip.zip') as xlsxfile:
     sheet = workbook.active
     text = sheet.cell(row=15, column=6).value
     assert '"Лицей"Физико-техническая школа"' in text
-
-with ZipFile('resources/test_zip.zip') as pdffile:
-    with pdffile.open('pdf_test.pdf', mode='r') as file:
-        pdf_reader = PDFDocument(file)
-        page = pdf_reader.pages[0]
-        text = page.extract_text()
-        assert '1. Что необходимо тестировать?' in text
